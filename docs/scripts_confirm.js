@@ -6,9 +6,16 @@ const supaclient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 // DOM element for status
 const statusEl = document.getElementById('status');
 
+// delay function
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Main logic
 async function handleConfirmation() {
   const { data: { user }, error } = await supaclient.auth.getUser();
+
+  await delay(5000);
 
   if (error || !user) {
     statusEl.textContent = 'Could not confirm email. Please try logging in again.';
@@ -21,11 +28,14 @@ async function handleConfirmation() {
   statusEl.textContent = 'Email confirmed! Setting up your account...';
 
   await user_team_list(id, uname);
+}
 
-//   statusEl.textContent = 'Setup complete! Redirecting...';
-//   setTimeout(() => {
-//     window.location.href = '/predictions/';
-//   }, 3000);
+// return back to the main predictions page
+async function returnHome() {
+  statusEl.textContent = 'Redirecting...';
+  setTimeout(() => {
+    window.location.href = '/predictions/';
+  }, 3000);
 }
 
 // When the user has registered, team list to be created

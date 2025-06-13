@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   await restoreSession()
 })
 
+// delay function
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const supaclient = supabase.createClient('https://lcfqseitghkcxzjtamoz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjZnFzZWl0Z2hrY3h6anRhbW96Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgxNzIzNzAsImV4cCI6MjA2Mzc0ODM3MH0.kPuKlk_UXlcF4WFGdh8o4Kl792B93-Q7q9Z8oFtK9Mk')
 const league_shorthands = ['prem', 'la_liga', 'champ', 'seriea', 'bundes', 'ligue1']
 const league_teams = [20, 20, 24, 20, 18, 18]
@@ -120,6 +125,8 @@ async function register() {
         emailRedirectTo: 'https://willbrown5515.github.io/predictions/confirm'
       }
     })
+
+    await delay(5000);
 
     if (error) throw error
 
